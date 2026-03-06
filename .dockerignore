@@ -1,0 +1,18 @@
+# Root .dockerignore for production build
+.git
+.gitignore
+*.md
+.env
+.env.*
+.env.example
+node_modules
+frontend/node_modules
+frontend/dist
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+htmlcov
+.venv
+venv
+docker-compose*.yml

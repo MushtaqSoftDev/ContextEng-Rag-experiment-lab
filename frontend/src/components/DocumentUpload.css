@@ -1,0 +1,81 @@
+.document-upload {
+  margin-bottom: 1.5rem;
+}
+
+.document-upload h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.document-upload .btn {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}
+
+.document-upload .btn:hover {
+  background: var(--border);
+}
+
+.document-upload .btn-primary {
+  margin-top: 0.5rem;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.document-upload .btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.document-upload .btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.file-list {
+  margin: 0.5rem 0 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+}
+
+.file-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0 0.25rem;
+  line-height: 1;
+}
+
+.btn-remove:hover {
+  color: var(--error);
+}
+
+.session-info {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
+  color: var(--success);
+}
+
+.document-upload .error {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
+  color: var(--error);
+}

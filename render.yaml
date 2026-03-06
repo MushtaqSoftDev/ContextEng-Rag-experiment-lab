@@ -1,0 +1,19 @@
+# Render Blueprint - Deploy from repo root
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: rag-context-eng
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: UPLOAD_DIR
+        value: /app/uploads
+      - key: STORAGE_DIR
+        value: /app/storage
