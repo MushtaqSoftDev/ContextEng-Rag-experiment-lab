@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+import { getAvailableProviders } from '../api'
 import './ParameterControls.css'
 
 const PROVIDERS = [
@@ -14,6 +16,20 @@ const REASONING_MODES = [
 ]
 
 export default function ParameterControls({ params, onChange }) {
+  const [availableProviders, setAvailableProviders] = useState({})
+
+  useEffect(() => {
+    getAvailableProviders().then(setAvailableProviders)
+  }, [])
+
+  useEffect(() => {
+    const available = availableProviders[params.provider]
+    if (available === false) {
+      const first = PROVIDERS.find((p) => availableProviders[p.id])
+      if (first) onChange({ ...params, provider: first.id })
+    }
+  }, [availableProviders, params.provider])
+
   const update = (key, value) => {
     onChange({ ...params, [key]: value })
   }
@@ -29,8 +45,13 @@ export default function ParameterControls({ params, onChange }) {
           onChange={(e) => update('provider', e.target.value)}
         >
           {PROVIDERS.map((p) => (
-            <option key={p.id} value={p.id}>
+            <option
+              key={p.id}
+              value={p.id}
+              disabled={availableProviders[p.id] === false}
+            >
               {p.label}
+              {availableProviders[p.id] === false ? ' (no API key)' : ''}
             </option>
           ))}
         </select>

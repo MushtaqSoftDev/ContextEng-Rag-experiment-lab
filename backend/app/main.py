@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-from app.config import CORS_ORIGINS
+from app.config import CORS_ORIGINS, OPENAI_API_KEY, GROQ_API_KEY, DEEPSEEK_API_KEY
 from app.routers import documents, chat
 
 
@@ -35,6 +35,17 @@ app.add_middleware(
 
 app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
 app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
+
+
+@app.get("/api/providers")
+def get_providers():
+    """Return which LLM providers have API keys configured. HuggingFace needs no key."""
+    return {
+        "openai": bool(OPENAI_API_KEY),
+        "groq": bool(GROQ_API_KEY),
+        "deepseek": bool(DEEPSEEK_API_KEY),
+        "huggingface": True,  # No key needed, runs on CPU
+    }
 
 
 @app.get("/health")

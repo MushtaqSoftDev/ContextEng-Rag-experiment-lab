@@ -1,6 +1,16 @@
 // Use proxy in dev (vite proxies /api to backend), or explicit URL for production
 const API_URL = import.meta.env.VITE_API_URL || ''
 
+export async function getAvailableProviders() {
+  try {
+    const res = await fetch(`${API_URL}/api/providers`)
+    if (!res.ok) return { openai: true, groq: true, deepseek: true, huggingface: true }
+    return res.json()
+  } catch {
+    return { openai: true, groq: true, deepseek: true, huggingface: true }
+  }
+}
+
 export async function uploadDocuments(files) {
   const formData = new FormData()
   for (const f of files) {
