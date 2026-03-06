@@ -31,11 +31,18 @@ RUN mkdir -p /app/uploads /app/storage
 # Frontend static files
 COPY --from=frontend /app/dist /usr/share/nginx/html
 
-# Nginx: serve frontend + proxy /api to uvicorn
+# Nginx: serve frontend + proxy /api and /health to uvicorn (port replaced at runtime via start.sh)
 RUN echo 'server { \
-    listen 80; \
+    listen 0.0.0.0:80; \
     root /usr/share/nginx/html; \
     index index.html; \
+    location /health { \
+        proxy_pass http://127.0.0.1:8000; \
+        proxy_http_version 1.1; \
+        proxy_set_header Host $host; \
+        proxy_connect_timeout 5s; \
+        proxy_read_timeout 5s; \
+    } \
     location /api/ { \
         proxy_pass http://127.0.0.1:8000; \
         proxy_http_version 1.1; \
