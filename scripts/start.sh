@@ -5,5 +5,5 @@ set -e
 LISTEN_PORT="${PORT:-80}"
 sed -i "s/listen 0.0.0.0:80/listen 0.0.0.0:$LISTEN_PORT/" /etc/nginx/sites-available/default
 
-uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+uvicorn app.main:app --host 0.0.0.0 --port 8000 &
 exec nginx -g "daemon off;"
